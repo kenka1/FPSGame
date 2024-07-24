@@ -104,6 +104,7 @@ StyleCopReport.xml
 
 # Assets
 /Assets
+/enc_temp_folder
 
 # Chutzpah Test files
 _Chutzpah*
