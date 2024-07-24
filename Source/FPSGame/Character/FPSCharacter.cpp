@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Character/FPSCharacter.h"
+#include "FPSCharacter.h"
 
 // Sets default values
 AFPSCharacter::AFPSCharacter()

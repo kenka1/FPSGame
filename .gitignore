@@ -102,6 +102,8 @@ StyleCopReport.xml
 *.vcxproj
 *.filters
 
+# Assets
+/Assets
 
 # Chutzpah Test files
 _Chutzpah*
