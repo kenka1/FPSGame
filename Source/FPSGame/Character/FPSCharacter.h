@@ -6,24 +6,24 @@
 #include "GameFramework/Character.h"
 #include "FPSCharacter.generated.h"
 
+class UCameraComponent;
+
 UCLASS()
 class FPSGAME_API AFPSCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
 	AFPSCharacter();
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+protected:
+	virtual void BeginPlay() override;
+
+
+
+private:
+	UPROPERTY(VisibleDefaultsOnly, Category = "Components")
+	UCameraComponent* ViewCamera;
 };
