@@ -6,7 +6,7 @@
 #include "GameFramework/Character.h"
 #include "FPSCharacter.generated.h"
 
-class UCameraComponent;
+class UFPSCameraComponent;
 
 UCLASS()
 class FPSGAME_API AFPSCharacter : public ACharacter
@@ -14,7 +14,7 @@ class FPSGAME_API AFPSCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
-	AFPSCharacter();
+	AFPSCharacter(const FObjectInitializer& ObjectInitialize = FObjectInitializer::Get());
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -25,5 +25,5 @@ protected:
 
 private:
 	UPROPERTY(VisibleDefaultsOnly, Category = "Components")
-	UCameraComponent* ViewCamera;
+	UFPSCameraComponent* CameraComponent;
 };

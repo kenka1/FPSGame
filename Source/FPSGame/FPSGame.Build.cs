@@ -7,6 +7,17 @@ public class FPSGame : ModuleRules
 	public FPSGame(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+
+		PublicIncludePaths.AddRange(
+			new string[] {
+				"FPSGame"
+			}
+		);
+
+		PrivateIncludePaths.AddRange(
+			new string[] {
+			}
+		);
 	
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput" });
 

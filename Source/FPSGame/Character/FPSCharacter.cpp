@@ -1,16 +1,19 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "FPSCharacter.h"
-#include "Camera/CameraComponent.h"
+#include "Character/FPSCharacter.h"
+#include "Camera/FPSCameraComponent.h"
 
-AFPSCharacter::AFPSCharacter()
+#include "Character/FPSExtensionComponent.h"
+
+AFPSCharacter::AFPSCharacter(const FObjectInitializer& ObjectInitializer):
+	Super(ObjectInitializer)
 {
 	PrimaryActorTick.bCanEverTick = true;
 
-	ViewCamera = CreateDefaultSubobject<UCameraComponent>("View Camera");
-	ViewCamera->SetupAttachment(GetRootComponent());
-
+	CameraComponent = CreateDefaultSubobject<UFPSCameraComponent>("CameraComponent");
+	CameraComponent->SetupAttachment(GetRootComponent());
+	
 }
 
 void AFPSCharacter::BeginPlay()
@@ -28,6 +31,8 @@ void AFPSCharacter::Tick(float DeltaTime)
 void AFPSCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
+	UFPSExtensionComponent* FPSComponent = FindComponentByClass<UFPSExtensionComponent>();
+	if (FPSComponent)
+		FPSComponent->SetupPlayerInputComponent();
 }
 
