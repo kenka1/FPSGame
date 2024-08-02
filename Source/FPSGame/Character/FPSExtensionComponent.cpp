@@ -19,44 +19,57 @@ void UFPSExtensionComponent::SetupPlayerInputComponent()
 {
 	const APawn* Owner = Cast<APawn>(GetOwner());
 	check(Owner);
-	UE_LOG(LogTemp, Warning, TEXT("Owner"));
+
 	const APlayerController* Controller = Owner->GetController<APlayerController>();
 	check(Controller);
-	UE_LOG(LogTemp, Warning, TEXT("Controller"));
+	
 	const ULocalPlayer* LocalPlayer = Controller->GetLocalPlayer();
 	check(LocalPlayer);
-	UE_LOG(LogTemp, Warning, TEXT("LocalPlayer"));
+	
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = LocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
 	check(Subsystem);
-	UE_LOG(LogTemp, Warning, TEXT("Subsystem"));
+	
 	if (IMC)
 		Subsystem->AddMappingContext(IMC, 0);
 
 	UEnhancedInputComponent* InputComponent = Cast<UEnhancedInputComponent>(Owner->InputComponent);
 	if (InputComponent)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Bind Action"));
 		InputComponent->BindAction(IAMove, ETriggerEvent::Triggered, this, &ThisClass::Input_Move);
+		InputComponent->BindAction(IALook, ETriggerEvent::Triggered, this, &ThisClass::Input_Look);
 	}
 }
 
 void UFPSExtensionComponent::Input_Move(const FInputActionValue& InputActionValue)
 {
 	APawn* Owner = Cast<APawn>(GetOwner());
-	check(Owner);
 
 	const FVector2D Value = InputActionValue.Get<FVector2D>();
 	if (Value.X != 0.0f)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("PRESSED MOVE"));
 		FVector MovementDirection = Owner->GetActorForwardVector();
 		Owner->AddMovementInput(MovementDirection, Value.X);
 	}
 
 	if (Value.Y != 0.0f)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("PRESSED MOVE"));
 		FVector MovementDirection = Owner->GetActorRightVector();
 		Owner->AddMovementInput(MovementDirection, Value.Y);
 	}
+}
+
+void UFPSExtensionComponent::Input_Look(const FInputActionValue& InputActionValue)
+{
+	APawn* Owner = Cast<APawn>(GetOwner());
+
+	const FVector2D Value = InputActionValue.Get<FVector2D>();
+	if (Value.X != 0)
+	{
+		Owner->AddControllerYawInput(Value.X);
+	}
+	if (Value.Y != 0)
+	{
+		Owner->AddControllerPitchInput(-Value.Y);
+	}
+
 }

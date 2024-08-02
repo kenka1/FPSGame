@@ -24,6 +24,7 @@ protected:
 private:
 
 	void Input_Move(const FInputActionValue& InputActionValue);
+	void Input_Look(const FInputActionValue& InputActionValue);
 
 	UPROPERTY(EditDefaultsOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UInputAction* IAMove;
